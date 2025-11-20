@@ -1,11 +1,10 @@
-import { Routes, Route, Navigate } from 'react-router-dom'; // QUITÉ BrowserRouter de aquí
+import { Routes, Route, Navigate } from 'react-router-dom'; // SIN BrowserRouter
 import { Toaster } from 'react-hot-toast';
 import { useCajeroStore } from '@/store/useCajeroStore';
 
-// Importa tus páginas del CAJERO
 import LoginCajero from '@/pages/LoginCajero';
 import MenuCajero from '@/pages/MenuCajero';
-import OperacionCajero from '@/pages/OperacionCajero';
+// OperacionCajero YA NO SE USA, bórralo de los imports si quieres
 
 const RutaPrivada = ({ children }: { children: JSX.Element }) => {
   const token = useCajeroStore(state => state.token);
@@ -15,23 +14,17 @@ const RutaPrivada = ({ children }: { children: JSX.Element }) => {
 function App() {
   return (
     <>
-      {/* NO PONER BROWSERROUTER AQUÍ, YA ESTÁ EN MAIN.TSX */}
       <Routes>
         <Route path="/" element={<LoginCajero />} />
-        
         <Route path="/menu" element={
           <RutaPrivada><MenuCajero /></RutaPrivada>
         } />
-        
-        <Route path="/operacion/:tipo" element={
-          <RutaPrivada><OperacionCajero /></RutaPrivada>
-        } />
-        
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
 
-      <Toaster position="bottom-center" toastOptions={{
-        style: { fontSize: '1.2rem', padding: '16px', borderRadius: '12px', background: '#333', color: '#fff' }
+      <Toaster position="top-right" toastOptions={{
+         duration: 4000,
+         style: { background: '#333', color: '#fff' }
       }}/>
     </>
   );
